@@ -3,42 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counter Test</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        .counter {
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        .btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>IP Logger to host device</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <div class="counter" id="counter">0</div>
-    <button class="btn" onclick="incrementCounter()">Increment</button>
+    <h1>Your IP</h1>
+    <p id="ip-address">Loading...</p>
 
     <script>
-        let count = 0;
-
-        function incrementCounter() {
-            count++;
-            document.getElementById("counter").textContent = count;
-        }
+        // ip take
+        axios.get('https://api.ipify.org?format=json')
+            .then(function (response) {
+                // Display the IP address
+                document.getElementById("ip-address").textContent = "Your IP Address is: " + response.data.ip;
+            })
+            .catch(function (error) {
+                console.error('Error fetching IP address:', error);
+                document.getElementById("ip-address").textContent = "Sorry, unable to fetch IP address.";
+            });
     </script>
 </body>
 </html>
